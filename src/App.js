@@ -8,7 +8,6 @@ import FamilyChanger from './components/FamilyChanger';
 import TextContainer from './components/TextContainer';
 
 class App extends Component {
-  // constructor
     constructor() {
       super();
 
@@ -21,6 +20,7 @@ class App extends Component {
       this.updateColor = this.updateColor.bind(this)
       this.updateSize = this.updateSize.bind(this)
       this.updateFamily = this.updateFamily.bind(this)
+      this.updateEditStatus = this.updateEditStatus.bind(this)
     }
   updateColor(val) {
     this.setState({
@@ -40,21 +40,29 @@ class App extends Component {
     });
   }
 
-  // updateEditStatus
+  updateEditStatus() {
+    this.setState({
+      allowEdit: !this.state.allowEdit
+    });
+  }
 
   render() {
+    console.log(this.state)
     return (
       <div>
         <div className="headerBar">
-          { /* Render EditToggle */ }
+          <EditToggle   update={this.updateEditStatus}/>
           <ColorChanger update={this.updateColor}
                         fontColor={this.state.fontColor} 
+                        allowEdit={this.state.allowEdit} 
           />
           <SizeChanger update={this.updateSize}
                        fontSize={this.state.fontSize} 
+                       allowEdit={this.state.allowEdit} 
           />
           <FamilyChanger update={this.updateFamily}
-                         fontFamily={this.state.fontFamily} />
+                         fontFamily={this.state.fontFamily}
+                         allowEdit={this.state.allowEdit} />
         </div>
         <div className="textArea">
           <TextContainer 
@@ -63,7 +71,7 @@ class App extends Component {
             fontFamily={this.state.fontFamily}
           />
         </div>
-        <div className="debug">{JSON.stringify(this.state)}</div>
+        {/* <div className="debug">{JSON.stringify(this.state)}</div> */}
       </div>
     )
   }
