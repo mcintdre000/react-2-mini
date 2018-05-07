@@ -18,12 +18,27 @@ class App extends Component {
         fontFamily: 'monospace',
         allowEdit: true
       }
+      this.updateColor = this.updateColor.bind(this)
+      this.updateSize = this.updateSize.bind(this)
+      this.updateFamily = this.updateFamily.bind(this)
     }
-  // updateColor
+  updateColor(val) {
+    this.setState({
+      fontColor: val
+    });
+  }
 
-  // updateSize
+  updateSize(val) {
+    this.setState({
+      fontSize: val
+    });
+  }
 
-  // updateFamily
+  updateFamily(val) {
+    this.setState({
+      fontFamily: val
+    });
+  }
 
   // updateEditStatus
 
@@ -32,9 +47,14 @@ class App extends Component {
       <div>
         <div className="headerBar">
           { /* Render EditToggle */ }
-          { /* Render ColorChanger */ }
-          { /* Render SizeChanger */ }
-          { /* Render FamilyChanger */ }
+          <ColorChanger update={this.updateColor}
+                        fontColor={this.state.fontColor} 
+          />
+          <SizeChanger update={this.updateSize}
+                       fontSize={this.state.fontSize} 
+          />
+          <FamilyChanger update={this.updateFamily}
+                         fontFamily={this.state.fontFamily} />
         </div>
         <div className="textArea">
           <TextContainer 
@@ -43,6 +63,7 @@ class App extends Component {
             fontFamily={this.state.fontFamily}
           />
         </div>
+        <div className="debug">{JSON.stringify(this.state)}</div>
       </div>
     )
   }
